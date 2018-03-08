@@ -1,0 +1,70 @@
+/*
+ * Minor customizations for stylistic improvments.
+ * Shaun Walbridge, Esri 2017
+ */
+
+.reveal pre.sourceCode {
+    line-height: 1.5em;
+    font-size: 0.7em;
+    font-family: "Consolas", monospaced;
+}
+
+reveal h1 {
+    font-weight: 700;
+    font-size: 2.8em;
+}
+
+.reveal h2 {
+    font-weight: 700;
+    font-size: 2.1em;
+}
+
+.reveal h2.author {
+    text-align: left;
+    font-size: 1.5em;
+    line-height: 1.0;
+}
+
+.reveal h1.title {
+    text-align: left;
+    font-size: 2.3em;
+    padding-top: 80px;
+    font-weight: 700;
+}
+
+.reveal .left blockquote p {
+    text-align: left;
+    padding-left: 30px;
+}
+
+.reveal .title h1.title {
+    font-size: 2.75em;
+}
+
+.reveal section img.tight {
+    vertical-align: center;
+    border: 0px;
+    margin: 0px;
+}
+
+.reveal .med a {
+    background-color: #303030;
+}
+
+.reveal .med a code{
+    font-size: 0.85em;
+    color: #21AEDB;
+}
+
+.reveal code {
+    font-family: "Consolas", monospaced;
+}
+
+pre, code {
+    background-color: #0b2e63;
+}
+
+.reveal .padleft {
+    text-align: left;
+    padding-left: 100px;
+}
