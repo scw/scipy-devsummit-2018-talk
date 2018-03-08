@@ -52,7 +52,6 @@ Python in ArcGIS {data-background="reveal.js/img/bg-6.png"}
  - Interactive Window, Python Addins, Python Tooboxes
  - Extensions:
     + Spatial Analyst: ``arcpy.sa``
-    + Map Document: ``arcpy.mapping``
     + Network Analyst: ``arcpy.na``
     + Geostatistics: ``arcpy.ga``
     + Fast cursors: ``arcpy.da``
@@ -63,7 +62,7 @@ Python in ArcGIS {data-background="reveal.js/img/bg-6.png"}
 
  - Python 3.6 in Pro ([Desktop vs Pro Python](http://pro.arcgis.com/en/pro-app/arcpy/get-started/python-migration-for-arcgis-pro.htm))
     + ``arcpy.mp`` instead of ``arcpy.mapping``
- - Continue to add modules: NetCDF4, xlrd, xlwt, PyPDF2, dateutil, pip
+ - Continue to add modules: NetCDF4, xlrd, xlwt, PyPDF2, dateutil, pip, requests, Jupyter &c
  - [Python raster function](http://desktop.arcgis.com/en/desktop/latest/manage-data/raster-and-images/python-raster-function.htm), with a [repository of examples](https://github.com/Esri/raster-functions) using SciPy for on the fly visualizations
 
 <div class="notes">
@@ -106,22 +105,49 @@ Included SciPy {data-background="reveal.js/img/bg-2.png"}
 
 Package                                               KLOC     Contributors      Stars
 -------                                             ------   --------------    -------
-[matplotlib](http://matplotlib.org/)                   118              441     4909 
-[Nose](http://readthedocs.org/docs/nose/en/latest/)      7               75     1053
+[IPython](https://ipython.readthedocs.io/en/stable/)    36              532    12519 
+[Jupyter Notebooks]()                                   67              323     3766
+[matplotlib](http://matplotlib.org/)                   118              693     6867 
 [NumPy](http://www.numpy.org/)                         236              429     4011
 [Pandas](http://pandas.pydata.org)                     183              408     8765
 [SciPy](http://scipy.org/scipylib/)                    387              387     2930
 [SymPy](http://sympy.org/)                             243              443     3642
-Totals                                                1174             1885
 
-Testing with Nose {data-background="reveal.js/img/bg-2.png"}
------------------
+SymPy {data-background="reveal.js/img/bg-2.png"}
+-----
 
- - [Nose](https://nose.readthedocs.org/en/latest/testing.html) &mdash; a Python framework for testing 
- - Tests improve your productivity, and create robust code
- - Nose builds on `unittest` framework, extends it to make testing easy.
- - Plugin architecture, [includes a number of plugins](https://nose.readthedocs.org/en/latest/plugins/builtin.html) and can be extended with [third-party plugins](https://nose-plugins.jottit.com/).
+![](images/logos/sympy.png){class="tight"} {data-background="reveal.js/img/bg-2.png"}
+---------------------------
 
+ - A Computer Algebra System (CAS), solve math equations ([source](../examples/sympy-algebra.py))
+
+```python
+from sympy import *
+x = symbol('x')
+eq = Eq(x**3 + 2*x**2 + 4*x + 8, 0)
+```
+
+![](images/sympy-eq.png)
+
+```python
+solve(eq, x)
+```
+
+![](images/sympy-res.png)
+
+Demo: SymPy {data-background="reveal.js/img/bg-2.png"}
+-----------
+
+![](images/logos/matplotlib.png) {data-background="reveal.js/img/bg-2.png"}
+--------------------------------
+
+ - Plotting library and API for NumPy data
+ - [Matplotlib Gallery](http://matplotlib.org/gallery.html){target="_newtab"}
+
+ - Also, new in Pro: `arcpy.chart`
+
+ArcGIS + NumPy {data-background="reveal.js/img/bg-2.png"}
+==============
 
 ![](images/logos/numpy.png) {data-background="reveal.js/img/bg-2.png"}
 ---------------------------
@@ -134,25 +160,17 @@ Testing with Nose {data-background="reveal.js/img/bg-2.png"}
 
 [SciPy Lectures](https://scipy-lectures.github.io/intro/numpy/array_object.html#indexing-and-slicing), CC-BY
 
-ArcGIS + NumPy {data-background="reveal.js/img/bg-2.png"}
---------------
+
  - ArcGIS and NumPy can interoperate on raster, table, and feature data.
  - See [Working with NumPy in ArcGIS](http://desktop.arcgis.com/en/desktop/latest/analyze/python/working-with-numpy-in-arcgis.htm)
  - In-memory data model. Example script to [process by blocks](../examples/process-by-blocks.py) if working with larger data.
+
 
 ArcGIS + NumPy {data-background="reveal.js/img/bg-2.png"}
 --------------
 
 ![](images/arcgis-numpy-workflow.png)
  
-![](images/logos/matplotlib.png) {data-background="reveal.js/img/bg-2.png"}
---------------------------------
-
- - Plotting library and API for NumPy data
- - [Matplotlib Gallery](http://matplotlib.org/gallery.html){target="_newtab"}
-
-![](images/special-1.png)
-
 ![](images/logos/scipy.png) {data-background="reveal.js/img/bg-2.png"}
 ---------------------------
 
@@ -276,40 +294,17 @@ morestats.circvar(r)
 Demo: SciPy {data-background="reveal.js/img/bg-2.png"}
 -----------
 
-
-
-Multidimensional Data {data-background="reveal.js/img/bg-6.png"}
-=====================
-
-NetCDF4 {data-background="reveal.js/img/bg-6.png"}
+IPython {data-background="reveal.js/img/bg-2.png"}
 -------
 
- * Fast, HDF5 and NetCDF4 read+write support, OPeNDAP
- * Heirarchical data structures
- * Widely used in meterology, oceanography, climate communities
- * Easier: Multidimensional Toolbox, but can be useful
+ - A better `python.exe`
+ - Demo: IPython 
 
-([Source](../examples/netcdf-open.py))
-```python
-import netCDF4
-nc = netCDF4.Dataset('test.nc', 'r', format='NETCDF4')
-print nc.file_format
-# outputs: NETCDF4
-nc.close()
-```
-<div class="notes">
- * CF compliant data
- * Fast, C-based access 
-</div>
+Jupyter Notebooks {data-background="reveal.js/img/bg-2.png"}
+-----------------
 
-Multidimensional Improvements {data-background="reveal.js/img/bg-6.png"}
---------------------
-
- - Multidimensional formats: HDF, GRIB, NetCDF
- - Access via OPeNDAP, vector renderer, Raster Function Chaining
- - [An example which combines mutli-D with time](http://desktop.arcgis.com/en/desktop/latest/manage-data/raster-and-images/creating-and-visualizing-a-multidimensional-mosaic-dataset.htm)
- - Multi-D supported as WMS, and in Mosaic datasets (10.2.1+)
-
+ - A new modality for computing
+ - Interactive technical computing, from your browser
 
 Pandas {data-background="reveal.js/img/bg-2.png"}
 ======
@@ -357,34 +352,16 @@ majority_simpsons = data[data.primetime_pct > 50]
     11      12  14.7m[56]          102.2       36.8      53.958944
     12      13  12.4m[57]          105.5       35.0      51.094891
 
+Spatial Data Frames {data-background="reveal.js/img/bg-2.png"}
+-------------------
+
+ - Same data frame model + geometries
+ - ArcPy + ArcGIS API for Python (e.g. Pro 2.1)
+ - Continues to expand, check them out
+
 Demo: Pandas {data-background="reveal.js/img/bg-2.png"}
 ------------
 
-SymPy {data-background="reveal.js/img/bg-2.png"}
-=====
-
-![](images/logos/sympy.png){class="tight"} {data-background="reveal.js/img/bg-2.png"}
----------------------------
-
- - A Computer Algebra System (CAS), solve math equations ([source](../examples/sympy-algebra.py))
-
-```python
-from sympy import *
-x = symbol('x')
-eq = Eq(x**3 + 2*x**2 + 4*x + 8, 0)
-```
-
-![](images/sympy-eq.png)
-
-```python
-solve(eq, x)
-```
-
-![](images/sympy-res.png)
-
-
-Demo: SymPy {data-background="reveal.js/img/bg-2.png"}
-----------
 
 Where and How Fast? {data-background="reveal.js/img/bg-2.png"}
 ===================
@@ -394,16 +371,13 @@ Where Can I Run This? {data-background="reveal.js/img/bg-2.png"}
  * Now: 
     - ArcGIS Pro (64-bit) 
     - 10.6: ArcMap, Server, both 32- and 64- bit environments
-        + Both now ship with [Scipy Stack](https://www.scipy.org/about.html)
+        + Both now ship with [core Scipy Stack](https://www.scipy.org/about.html)
     - MKL enabled NumPy and SciPy everywhere
-        + <span style="font-size: 0.6em;">Older releases: NumPy: ArcGIS 9.2+, matplotlib: ArcGIS 10.1+, SciPy: 10.4+, Pandas: 10.4+</span>
     - Conda for managing full Python environments, consuming and producing packages
     - With the ArcGIS API for Python! Can run anywhere Python runs.
 
 <div class="notes">
     - SciPy stack is now available across the platform. Try it out, you can build things that will work on your machine and your users machines without additional work.
-    - IPython: Let's get this done like yesterday. Had it in the 'upcoming' of last years slide, I'll eat a hat if it isn't in by next DevSummit.
-    - Conda session today, Mesquite GH at 4pm.
 </div>
 
 How Does It perform? {data-background="reveal.js/img/bg-2.png"}
@@ -501,7 +475,7 @@ Code {data-background="reveal.js/img/bg-6.png"}
  - [ArcPy + SciPy on Github](https://github.com/search?p=5&q=scipy+arcpy&type=Code&utf8=%E2%9C%93)
  - [raster-functions](https://github.com/Esri/raster-functions) 
     + An open source collection of function chains to show how to do complex things using NumPy + scipy on the fly for visualization purposes
- - [statistics library](https://docs.python.org/3/library/statistics.html) with a handful of descriptive statistics included in Python 3.4.
+ - [statistics library](https://docs.python.org/3/library/statistics.html) with a handful of descriptive statistics included in Python 3.4+.
 - _TIP_: Want a codebase that runs in Python 2 and 3? [Check out future](http://python-future.org), which helps maintain a single codebase that supports both. Includes the `futurize` script to initially a project written for one version.
 
 Scientific ArcGIS Extensions {data-background="reveal.js/img/bg-6.png"}
@@ -537,6 +511,7 @@ Thanks {data-background="reveal.js/img/bg-2.png"}
 ------
 
  - Geoprocessing Team
+ - ArcGIS API for Python Team
  - The many amazing contributors to the projects demonstrated here.
     + Get involved! All are on GitHub and happily accept contributions.
 

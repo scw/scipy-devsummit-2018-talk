@@ -11,12 +11,12 @@
 
 reveal h1 {
     font-weight: 700;
-    font-size: 2.8em;
+    font-size: 2.7em;
 }
 
 .reveal h2 {
     font-weight: 700;
-    font-size: 2.1em;
+    font-size: 2.0em;
 }
 
 .reveal h2.author {
@@ -38,7 +38,7 @@ reveal h1 {
 }
 
 .reveal .title h1.title {
-    font-size: 2.75em;
+    font-size: 2.7em;
 }
 
 .reveal section img.tight {
